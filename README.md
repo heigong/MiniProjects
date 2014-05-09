@@ -1,0 +1,4 @@
+MiniProjects
+============
+
+Java case study.
