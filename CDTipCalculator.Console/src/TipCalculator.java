@@ -43,16 +43,55 @@ public class TipCalculator {
 			Scanner scan = new Scanner(System.in);
 			
 			System.out.println("What's the billing amount?");
-			// TODO: What happen when enter invalid input.
-			double amount = scan.nextDouble();
+			
+			done = false;
+			double amount = 0;
+			while(!done){
+				try{
+					amount = scan.nextDouble();
+					done = true;
+				}
+				catch(Exception ex){
+					System.out.println("Invalid input, please enter your amount:");
+					
+					// NOTE: This is important to clear previous buffer.
+					scan.next();
+				}
+			}
 			
 			System.out.println("What's the percentage you want to tip?");
-			// TODO: What happen when enter invalid input.
-			double percentage = scan.nextDouble();
+			
+			done = false;
+			double percentage = 0;
+			while(!done){
+				try{
+					percentage = scan.nextDouble();
+					done = true;
+				}
+				catch(Exception ex){
+					System.out.println("Invalid input, please enter your tip percentage:");
+					
+					// NOTE: This is important to clear previous buffer.
+					scan.next();
+				}
+			}
 			
 			System.out.println("How many people?");
-			// TODO: What happen when enter invalid input.
-			int numberOfPeople = scan.nextInt();
+			
+			done = false;
+			int numberOfPeople = 0;
+			while(!done){
+				try{
+					numberOfPeople = scan.nextInt();
+					done = true;
+				}
+				catch(Exception ex){
+					System.out.println("Invalid input, please enter number of people:");
+					
+					// NOTE: This is important to clear previous buffer.
+					scan.next();
+				}
+			}
 			
 			double total = amount * (1 + percentage/100);
 			System.out.println("Total is: " + total);
@@ -63,17 +102,23 @@ public class TipCalculator {
 			System.out.println();
 			System.out.println("Do you want to continue? (Y/N)");
 			
-			// TODO: Figure out why scan.nextLine() is working here.
-			// TODO: What happen when enter invalid input.
-			String answer = scan.next();
-			if(answer.equals("N")){
-				done = true;
-			}
-			else if(answer.equals("Y")){
-				//
-			}
-			else{
-				// TODO: Show error
+			String answer = null;
+			done = false;
+			while(!done){
+				
+				// TODO: Figure out why scan.nextLine() is working here.				
+				answer = scan.next();
+
+				if(answer.equals("N")){
+					done = true;
+					break;
+				}
+				else if(answer.equals("Y")){
+					break;
+				}
+				else{
+					System.out.println("Invalid input, please enter 'Y'(Yes) or 'N'(No).");
+				}
 			}
 			
 			System.out.println();
