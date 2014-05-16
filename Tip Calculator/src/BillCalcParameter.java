@@ -4,40 +4,48 @@ import java.util.*;
 
 public class BillCalcParameter 
 {
-  private static Map<String, String> inputMap = new HashMap<String, String>();  
   private static String answerContinue = "Y";
-  
-  private static void getPairInput(String[] args)
-  {
-      try{for (int i = 0; i < args.length; i += 2) inputMap.put(args[i], args[i+1]);}
-      catch(Exception ex){
-          System.out.println("Please show all parameters to the program");
-          System.out.println("-a billAmount, -p tipPercentage, -n divideNumber");
-          System.out.println("for billAmount, tipPercentage and divideNumber, please input numbers only");
-          answerContinue = "N";
-      }
-  }
   
   public static void main(String[] args)
   { 
-    getPairInput(args);
-    if (answerContinue.equals("Y"))
+    Utils utils = new Utils();
+    Map<String, String> inputMap = utils.getPairInput(args);
+    while (answerContinue.equals("Y"))
     {
       BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
       double billAmount = 0;
       double billTipPercent = 0;
       double divideNumber = 1;
-      try {billAmount = Double.parseDouble(inputMap.get("-a"));}
-      catch(Exception ex) {System.out.println("Invalid input for -a. Please input number for bill amount, e.g.");}
-      try{billTipPercent = Double.parseDouble(inputMap.get("-p"));}
-      catch(Exception ex) {System.out.println("Invalid input for -p. Please input number for tip percentage");}
+      try 
+      {
+          billAmount = Double.parseDouble(inputMap.get("-a"));
+          answerContinue = "N";}
+      catch(Exception ex) 
+      {
+          System.out.println("Invalid input for -a. Please input number for bill amount, e.g.");
+          break;}
+      try
+      {
+          billTipPercent = Double.parseDouble(inputMap.get("-p"));
+          answerContinue = "N";}
+      catch(Exception ex) 
+      {
+          System.out.println("Invalid input for -p. Please input number for tip percentage");
+          break;}
       if (billTipPercent >= 1) billTipPercent /= 100;
-      try{divideNumber = Double.parseDouble(inputMap.get("-n"));}
-      catch(Exception ex){System.out.println("Invalid input for -n. Please input number for bill to be divided to");}
+      try
+      {
+          divideNumber = Double.parseDouble(inputMap.get("-n"));
+          answerContinue = "N";}
+      catch(Exception ex)
+      {
+          System.out.println("Invalid input for -n. Please input number for bill to be divided to");
+          break;}
       double totalPay = billAmount * (1 + billTipPercent);
       double eachPay = totalPay / divideNumber;
       System.out.println("The total is " + totalPay);
       System.out.println("Each person should pay " + eachPay);
+      /*
       boolean validAnswer = false;
       while(!validAnswer){
         try{
@@ -47,8 +55,9 @@ public class BillCalcParameter
         if (answerContinue.equalsIgnoreCase("Y") || answerContinue.equalsIgnoreCase("N")) validAnswer = true;
         else System.out.println("Invalid input. Please input Y or N.");
       }
+      */
     }
     System.out.println("Thank you!"); 
-    answerContinue = "Y";
+    //answerContinue = "Y";
   }
 }
